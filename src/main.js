@@ -75,7 +75,7 @@ gui
 // scene.background = environmentMap;
 
 // HDR (RGBE)
-rbgeloader.load("/environmentMaps/0/2k.hdr", (environmentMap) => {
+rbgeloader.load("/environmentMaps/blender-2k.hdr", (environmentMap) => {
   environmentMap.mapping = THREE.EquirectangularReflectionMapping;
   scene.environment = environmentMap;
   scene.background = environmentMap;
