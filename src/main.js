@@ -1,5 +1,6 @@
 import GUI from "lil-gui";
 import * as THREE from "three";
+import { GroundedSkybox } from "three/addons/objects/GroundedSkybox.js";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader.js";
@@ -83,13 +84,23 @@ gui
 // });
 
 // LDR equirectangular
-const environmentMap = textureLoader.load(
-  "/environmentMaps/blockadesLabsSkybox/anime_art_style_japan_streets_with_cherry_blossom_.jpg",
-);
-environmentMap.mapping = THREE.EquirectangularReflectionMapping;
-environmentMap.colorSpace = THREE.SRGBColorSpace;
-scene.environment = environmentMap;
-scene.background = environmentMap;
+// const environmentMap = textureLoader.load(
+//   "/environmentMaps/blockadesLabsSkybox/anime_art_style_japan_streets_with_cherry_blossom_.jpg",
+// );
+// environmentMap.mapping = THREE.EquirectangularReflectionMapping;
+// environmentMap.colorSpace = THREE.SRGBColorSpace;
+// scene.environment = environmentMap;
+// scene.background = environmentMap;
+
+// Ground projected skybox
+rbgeloader.load("/environmentMaps/2/2k.hdr", (environmentMap) => {
+  environmentMap.mapping = THREE.EquirectangularReflectionMapping;
+  scene.environment = environmentMap;
+
+  const skybox = new GroundedSkybox(environmentMap, 15, 70);
+  skybox.position.y = 15;
+  scene.add(skybox);
+});
 
 /**
  * Torus Knot
