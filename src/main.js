@@ -10,6 +10,7 @@ import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader.js";
 const gltfLoader = new GLTFLoader();
 const cubeTextureLoader = new THREE.CubeTextureLoader();
 const rbgeloader = new RGBELoader();
+const textureLoader = new THREE.TextureLoader();
 
 /**
  * Base
@@ -75,11 +76,21 @@ gui
 // scene.background = environmentMap;
 
 // HDR (RGBE)
-rbgeloader.load("/environmentMaps/blender-2k.hdr", (environmentMap) => {
-  environmentMap.mapping = THREE.EquirectangularReflectionMapping;
-  scene.environment = environmentMap;
-  scene.background = environmentMap;
-});
+// rbgeloader.load("/environmentMaps/blender-2k.hdr", (environmentMap) => {
+//   environmentMap.mapping = THREE.EquirectangularReflectionMapping;
+//   scene.environment = environmentMap;
+//   scene.background = environmentMap;
+// });
+
+// LDR equirectangular
+const environmentMap = textureLoader.load(
+  "/environmentMaps/blockadesLabsSkybox/anime_art_style_japan_streets_with_cherry_blossom_.jpg",
+);
+environmentMap.mapping = THREE.EquirectangularReflectionMapping;
+environmentMap.colorSpace = THREE.SRGBColorSpace;
+scene.environment = environmentMap;
+scene.background = environmentMap;
+
 /**
  * Torus Knot
  */
